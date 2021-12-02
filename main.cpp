@@ -16,6 +16,7 @@ void background(int a,int b,int c, int d){
 	glColor3ub(138, 74, 75);
 	glVertex2i(0, 885);
 	glEnd();
+	glFlush();
 }
 
 void bridge(){
@@ -33,7 +34,7 @@ void footpath(){
 		if(flag==0){
 			glColor3ub(68, 47, 46);
 			drawQuads(i, 948, 14, 80);
-			
+
 			glColor3ub(47, 24, 8);
 			drawQuads(i, 962, 38, 80);
 
@@ -110,8 +111,9 @@ void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width){
 	glVertex2i(x+width, y+height);
 	glVertex2i(x, y+height);
 	glEnd();
+	glFlush();
 }
 //draw square
 void drawSquare(GLfloat x, GLfloat y, GLfloat height){
-	drawQuads(x, y, height, height);	
+	drawQuads(x, y, height, height);
 }
