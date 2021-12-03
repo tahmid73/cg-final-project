@@ -1,9 +1,12 @@
 #include <cstdio>
 #include<GL/gl.h>
 #include <GL/glut.h>
-
+#include<math.h>
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
+
+
+
 
 void background(int a,int b,int c, int d){
 	glBegin(GL_QUADS);
@@ -26,6 +29,31 @@ void bridge(){
 	drawQuads(0, 616, 8, 1920);
 }
 
+//bridge curve...
+void BridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4)
+{
+
+GLfloat x[4],y[4],xt[200],yt[200];
+
+x[0]=x1,x[1]=x2,x[2]=x3,x[3]=x4;
+y[0]=y1,y[1]=y2,y[2]=y3,y[3]=y4;
+
+glPointSize(5.0);
+glBegin(GL_POINTS);
+
+int i=0;
+for(GLfloat t=0;t<=1;t=t+0.005)
+{
+    //bezier equation for four control points
+    xt[i]=pow(1-t,3)*x[0]+3*t*pow(1-t,2)*x[1]+3*pow(t,2)*(1-t)*x[2]+pow(t,3)*x[3];
+    yt[i]=pow(1-t,3)*y[0]+3*t*pow(1-t,2)*y[1]+3*pow(t,2)*(1-t)*y[2]+pow(t,3)*y[3];
+    glVertex2f(xt[i],yt[i]);
+    i++;
+}
+
+glEnd();
+glFlush ();
+}
 void footpath(){
 	int flag=0;
 	glColor3ub(57, 48, 39);
