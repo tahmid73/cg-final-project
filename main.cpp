@@ -4,8 +4,8 @@
 #include<math.h>
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
-
-
+void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
+void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 
 
 void background(int a,int b,int c, int d){
@@ -22,38 +22,30 @@ void background(int a,int b,int c, int d){
 	glFlush();
 }
 
+void tower(){
+	glBegin(GL_LINES);
+	int x1=0,x2=1920,y=462;
+	glColor3ub(0,0,0);
+	for(int i=0;i<3;i++)
+	{
+		glVertex2i(x1, y);
+		glVertex2i(x2, y);
+		y+=40;
+	}
+	glEnd();
+	glFlush();
+}
+
 void bridge(){
 	glColor3ub(104, 55, 61);
 	drawQuads(0, 596, 20, 1920);
 	glColor3ub(67, 36, 41);
 	drawQuads(0, 616, 8, 1920);
+	bridgeCurve(24,680,124,362,451,362,551,680);
+	
 }
 
-//bridge curve...
-void BridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4)
-{
 
-GLfloat x[4],y[4],xt[200],yt[200];
-
-x[0]=x1,x[1]=x2,x[2]=x3,x[3]=x4;
-y[0]=y1,y[1]=y2,y[2]=y3,y[3]=y4;
-
-glPointSize(5.0);
-glBegin(GL_POINTS);
-
-int i=0;
-for(GLfloat t=0;t<=1;t=t+0.005)
-{
-    //bezier equation for four control points
-    xt[i]=pow(1-t,3)*x[0]+3*t*pow(1-t,2)*x[1]+3*pow(t,2)*(1-t)*x[2]+pow(t,3)*x[3];
-    yt[i]=pow(1-t,3)*y[0]+3*t*pow(1-t,2)*y[1]+3*pow(t,2)*(1-t)*y[2]+pow(t,3)*y[3];
-    glVertex2f(xt[i],yt[i]);
-    i++;
-}
-
-glEnd();
-glFlush ();
-}
 void footpath(){
 	int flag=0;
 	glColor3ub(57, 48, 39);
@@ -100,15 +92,17 @@ bridge();
 
 //footpath
 footpath();
-
 //bench
 bench();
+//bridge curve
+
+
+//
+tower();
 
 glEnd();
 glFlush ();
-
 }
-
 
 void myInit (void)
 {
@@ -123,7 +117,7 @@ int main(int argc, char** argv)
 glutInit(&argc, argv);
 glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
 glutInitWindowSize (960, 540);
-glutInitWindowPosition (960, 540);
+glutInitWindowPosition (0,0);
 glutCreateWindow ("Hatir Jheel lite");
 glutDisplayFunc(myDisplay);
 myInit ();
@@ -144,4 +138,40 @@ void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width){
 //draw square
 void drawSquare(GLfloat x, GLfloat y, GLfloat height){
 	drawQuads(x, y, height, height);
+}
+void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4){
+	int n=569;
+	curve(x1,y1,x2,y2,x3,y3,x4,y4);
+	x1+=n;x2+=n;x3+=n;x4+=n;
+	curve(x1,y1,x2,y2,x3,y3,x4,y4);
+	x1+=n;x2+=n;x3+=n;x4+=n;
+	curve(x1,y1,x2,y2,x3,y3,x4,y4);
+	x1+=n;x2+=n;x3+=n;x4+=n;
+	curve(x1,y1,x2,y2,x3,y3,x4,y4);
+}
+
+//bridge curve...
+void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4)
+{
+
+GLfloat x[4],y[4],xt[1000],yt[1000];
+
+x[0]=x1,x[1]=x2,x[2]=x3,x[3]=x4;
+y[0]=y1,y[1]=y2,y[2]=y3,y[3]=y4;
+
+glPointSize(10.0);
+glBegin(GL_POINTS);
+
+int i=0;
+for(GLfloat t=0;t<=1;t=t+0.001)
+{
+    //bezier equation for four control points
+    xt[i]=pow(1-t,3)*x[0]+3*t*pow(1-t,2)*x[1]+3*pow(t,2)*(1-t)*x[2]+pow(t,3)*x[3];
+    yt[i]=pow(1-t,3)*y[0]+3*t*pow(1-t,2)*y[1]+3*pow(t,2)*(1-t)*y[2]+pow(t,3)*y[3];
+    glVertex2f(xt[i],yt[i]);
+    i++;
+}
+
+glEnd();
+glFlush ();
 }
