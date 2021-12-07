@@ -1,8 +1,11 @@
+#include<iostream>
 #include <cstdio>
 #include<GL/gl.h>
 #include <GL/glut.h>
 #include<math.h>
 #define PI 3.1416
+
+using namespace std;
 
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
@@ -10,7 +13,21 @@ void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 
-void background(int a,int b,int c, int d){
+
+string mode="sunrise";
+
+void drawStar() {
+  glColor3ub(255,255,255);
+  drawFilledCircle(0, 0, 5);
+  glColor3f(.8, .8, .8);
+  drawFilledCircle(0, 0, 3);
+}
+
+
+
+void background(string mode){
+	int sunriseColors[]={214,107,75,138, 74, 75};
+
 	glBegin(GL_QUADS);
 	glColor3ub(214, 107, 75);
 	glVertex2i(0, 0);
@@ -45,6 +62,7 @@ void bridge(){
 	drawQuads(0, 596, 20, 1920);
 	glColor3ub(67, 36, 41);
 	drawQuads(0, 616, 8, 1920);
+	glColor3ub(133, 57, 61);
 	bridgeCurve(24,680,124,362,451,362,551,680);
 	int x1=1678,y1=594;
 	drawQuads(x1, y1, 118, 65);
@@ -54,7 +72,7 @@ void bridge(){
 	drawQuads(x1, y1, 118, 65);
 	x1-=565;
 	drawQuads(x1, y1, 118, 65);
-
+	
 
 }
 
@@ -98,7 +116,7 @@ glClear (GL_COLOR_BUFFER_BIT);
 glPointSize(5.0);
 
 //background theme
-background(1, 2, 3, 4);
+background("night");
 
 //bridge er shoja jayga
 bridge();
@@ -112,7 +130,7 @@ bench();
 
 //
 tower();
-
+drawStar();
 glEnd();
 glFlush ();
 }
@@ -205,3 +223,33 @@ void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
 	glEnd();
 }
 
+
+void handleKeypress(unsigned char key, int x, int y) {
+
+
+
+	switch (key) {
+
+
+
+case 'n':
+	mode="night";	
+    	break;
+case 's':
+	mode="sunrise"; 
+	break;
+case 'm':
+	mode="morning";
+   	break;
+
+
+
+glutPostRedisplay();
+
+
+
+
+
+	}
+
+}
