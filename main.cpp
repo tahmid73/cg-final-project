@@ -2,11 +2,13 @@
 #include<GL/gl.h>
 #include <GL/glut.h>
 #include<math.h>
+#define PI 3.1416
+
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
 void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-
+void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 
 void background(int a,int b,int c, int d){
 	glBegin(GL_QUADS);
@@ -19,6 +21,8 @@ void background(int a,int b,int c, int d){
 	glColor3ub(138, 74, 75);
 	glVertex2i(0, 885);
 	glEnd();
+	glColor3ub(255, 230, 200);
+	drawFilledCircle(1161,594,111);
 	glFlush();
 }
 
@@ -42,7 +46,16 @@ void bridge(){
 	glColor3ub(67, 36, 41);
 	drawQuads(0, 616, 8, 1920);
 	bridgeCurve(24,680,124,362,451,362,551,680);
-	
+	int x1=1678,y1=594;
+	drawQuads(x1, y1, 118, 65);
+	x1-=570;
+	drawQuads(x1, y1, 118, 65);
+	x1-=570;
+	drawQuads(x1, y1, 118, 65);
+	x1-=565;
+	drawQuads(x1, y1, 118, 65);
+
+
 }
 
 
@@ -175,3 +188,20 @@ for(GLfloat t=0;t<=1;t=t+0.001)
 glEnd();
 glFlush ();
 }
+
+void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
+	int i;
+	int triangleAmount = 50; 	
+	GLfloat twicePi = 2.0f * PI;
+	
+	glBegin(GL_TRIANGLE_FAN);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) { 
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)), 
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+}
+
