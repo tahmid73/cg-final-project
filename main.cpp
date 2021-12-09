@@ -12,7 +12,7 @@ void drawSquare(GLfloat x, GLfloat y, GLfloat height);
 void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
-
+void cloud();
 
 string mode="sunrise";
 
@@ -72,7 +72,7 @@ void bridge(){
 	drawQuads(x1, y1, 118, 65);
 	x1-=565;
 	drawQuads(x1, y1, 118, 65);
-	
+
 
 }
 
@@ -127,10 +127,11 @@ footpath();
 bench();
 //bridge curve
 
-
-//
 tower();
 drawStar();
+
+cloud();
+
 glEnd();
 glFlush ();
 }
@@ -209,18 +210,29 @@ glFlush ();
 
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
 	int i;
-	int triangleAmount = 50; 	
+	int triangleAmount = 50;
 	GLfloat twicePi = 2.0f * PI;
-	
+
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex2f(x, y); // center of circle
-		for(i = 0; i <= triangleAmount;i++) { 
+		for(i = 0; i <= triangleAmount;i++) {
 			glVertex2f(
-		            x + (radius * cos(i *  twicePi / triangleAmount)), 
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
 			    y + (radius * sin(i * twicePi / triangleAmount))
 			);
 		}
 	glEnd();
+}
+void cloud()
+{
+    glColor3ub(255, 255 , 255);
+	drawFilledCircle(900,150,40);
+	drawFilledCircle(900+35,150-40,50);
+	drawFilledCircle(900+55,150,55);
+	drawFilledCircle(900+90,150-50,65);
+	drawFilledCircle(900+100,150-10,65);
+	drawFilledCircle(900+160,150,40);
+   glFlush();
 }
 
 
@@ -233,10 +245,10 @@ void handleKeypress(unsigned char key, int x, int y) {
 
 
 case 'n':
-	mode="night";	
+	mode="night";
     	break;
 case 's':
-	mode="sunrise"; 
+	mode="sunrise";
 	break;
 case 'm':
 	mode="morning";
