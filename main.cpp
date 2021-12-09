@@ -12,9 +12,9 @@ void drawSquare(GLfloat x, GLfloat y, GLfloat height);
 void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
+void cloud();
 
-
-int mode=2;
+string mode="sunrise";
 
 void drawStar() {
   glColor3ub(255,255,255);
@@ -25,26 +25,17 @@ void drawStar() {
 
 
 
-void background(int mode){
-	int backColors[]={214,107,75,138, 74, 75};
-	switch (mode) {
-		case 1:{
-			int backColors[]={214,107,75,138, 74, 75};
-			break;
-			}
-		case 2:{
-			int backColors[]={1,1,1,1,1,1};
-			break;
-			}
-	}
+void background(string mode){
+	int sunriseColors[]={214,107,75,138, 74, 75};
+
 	glBegin(GL_QUADS);
-	glColor3ub(backColors[0], backColors[1], backColors[2]);
+	glColor3ub(214, 107, 75);
 	glVertex2i(0, 0);
-	glColor3ub(backColors[0], backColors[1], backColors[2]);
+	glColor3ub(214, 107, 75);
 	glVertex2i(1920, 0);
-	glColor3ub(backColors[3], backColors[4], backColors[5]);
+	glColor3ub(138, 74, 75);
 	glVertex2i(1920, 885);
-	glColor3ub(backColors[3], backColors[4], backColors[5]);
+	glColor3ub(138, 74, 75);
 	glVertex2i(0, 885);
 	glEnd();
 	glColor3ub(255, 230, 200);
@@ -81,7 +72,7 @@ void bridge(){
 	drawQuads(x1, y1, 118, 65);
 	x1-=565;
 	drawQuads(x1, y1, 118, 65);
-	
+
 
 }
 
@@ -116,9 +107,6 @@ void footpath(){
 void bench(){
 	glColor3ub(156, 90, 92);
 	drawQuads(759, 792, 103, 12);
-	glColor3ub(128, 58, 58);
-	drawQuads(865, 847, 22,321);
-	//drawQuads()
 }
 
 void myDisplay(void)
@@ -128,7 +116,7 @@ glClear (GL_COLOR_BUFFER_BIT);
 glPointSize(5.0);
 
 //background theme
-background(1);
+background("night");
 
 //bridge er shoja jayga
 bridge();
@@ -139,10 +127,11 @@ footpath();
 bench();
 //bridge curve
 
-
-//
 tower();
 drawStar();
+
+cloud();
+
 glEnd();
 glFlush ();
 }
@@ -221,18 +210,29 @@ glFlush ();
 
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
 	int i;
-	int triangleAmount = 50; 	
+	int triangleAmount = 50;
 	GLfloat twicePi = 2.0f * PI;
-	
+
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex2f(x, y); // center of circle
-		for(i = 0; i <= triangleAmount;i++) { 
+		for(i = 0; i <= triangleAmount;i++) {
 			glVertex2f(
-		            x + (radius * cos(i *  twicePi / triangleAmount)), 
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
 			    y + (radius * sin(i * twicePi / triangleAmount))
 			);
 		}
 	glEnd();
+}
+void cloud()
+{
+    glColor3ub(255, 255 , 255);
+	drawFilledCircle(900,150,40);
+	drawFilledCircle(900+35,150-40,50);
+	drawFilledCircle(900+55,150,55);
+	drawFilledCircle(900+90,150-50,65);
+	drawFilledCircle(900+100,150-10,65);
+	drawFilledCircle(900+160,150,40);
+   glFlush();
 }
 
 
@@ -245,13 +245,13 @@ void handleKeypress(unsigned char key, int x, int y) {
 
 
 case 'n':
-	mode=3;	
+	mode="night";
     	break;
 case 's':
-	mode=1; 
+	mode="sunrise";
 	break;
 case 'm':
-	mode=2;
+	mode="morning";
    	break;
 
 
