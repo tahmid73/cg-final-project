@@ -14,6 +14,7 @@ void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 void cloud();
 void drawMoon();
+void drawLampPost();
 
 string mode="sunrise";
 
@@ -133,7 +134,7 @@ drawStar();
 
 cloud();
 
-
+drawLampPost();
 glEnd();
 glFlush ();
 }
@@ -246,13 +247,118 @@ void drawMoon()
 
 
 }
+void drawLampPost()
+{
+    glBegin(GL_POLYGON);
+    glColor3ub(23, 23, 23);
+	glVertex2i(1595, 863+45);
+	glVertex2i(1595, 846+45);
+	glVertex2i(1588, 838+45);
+	glVertex2i(1563, 838+45);
+	glVertex2i(1554, 847+45);
+	glVertex2i(1554, 863+45);
+	glEnd();
+	glBegin(GL_POLYGON);
+    glVertex2i(1588, 838+45);
+	glVertex2i(1588, 745+45);
+    glVertex2i(1580, 733+45);
+    glVertex2i(1570, 733+45);
 
+    glVertex2i(1563, 745+45);
+    glColor3ub(248,248,248);
+    glVertex2i(1563, 838+45);
+    glEnd();
+    glBegin(GL_POLYGON);
+    glColor3ub(23, 23, 23);
+	glVertex2i(1580, 733+45);
+	glVertex2i(1580, 585+45);
+    glVertex2i(1570, 585+45);
+    glVertex2i(1570, 733+45);
+    glEnd();
+
+    glLineWidth(2);
+    glBegin(GL_LINES);
+    glVertex2i(1547, 590+45);
+    glVertex2i(1604, 590+45);
+    glEnd();
+
+    glPointSize(5);
+    glBegin(GL_POINTS);
+    glVertex2i(1547, 590+45);
+    glVertex2i(1604, 590+45);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3ub(23, 23, 23 );
+	glVertex2i(1580, 590+45);
+	glVertex2i(1587, 571+45);
+    glVertex2i(1562, 571+45);
+	glVertex2i(1570, 590+45);
+
+	glEnd();
+
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(255,255,102);
+	glVertex2i(1587, 571+45);
+	glVertex2i(1592, 571+45);
+    glVertex2i(1598, 537+45);
+	glVertex2i(1552, 537+45);
+	glVertex2i(1558, 571+45);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+    glColor3ub(23, 23, 23);
+
+
+	glVertex2i(1592, 571+45);
+    glVertex2i(1598, 537+45);
+	glVertex2i(1552, 537+45);
+	glVertex2i(1558, 571+45);
+    glVertex2i(1592, 571+45);
+	glEnd();
+
+    glLineWidth(3);
+    glBegin(GL_LINES);
+
+	glVertex2i(1576, 573+45);
+    glVertex2i(1576, 536+45);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+
+
+	glVertex2i(1615, 537+45);
+	glVertex2i(1597, 527+45);
+    glVertex2i(1575, 508+45);
+	glVertex2i(1535, 537+45);
+	glEnd();
+    glLineWidth(3);
+    glBegin(GL_LINES);
+    glVertex2i(1558, 827+45);
+    glVertex2i(1592, 827+45);
+    glEnd();
+
+    glLineWidth(3);
+    glBegin(GL_LINES);
+    glVertex2i(1558, 760+45);
+    glVertex2i(1592, 760+45);
+    glEnd();
+
+
+
+
+
+    glFlush();
+
+}
 void handleKeypress(unsigned char key, int x, int y) {
 
 
 
 	switch (key) {
-
 
 
 case 'n':
