@@ -13,6 +13,7 @@ void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 void cloud();
+void drawMoon();
 
 string mode="sunrise";
 
@@ -27,7 +28,6 @@ void drawStar() {
 
 void background(string mode){
 	int sunriseColors[]={214,107,75,138, 74, 75};
-
 	glBegin(GL_QUADS);
 	glColor3ub(214, 107, 75);
 	glVertex2i(0, 0);
@@ -38,6 +38,7 @@ void background(string mode){
 	glColor3ub(138, 74, 75);
 	glVertex2i(0, 885);
 	glEnd();
+
 	glColor3ub(255, 230, 200);
 	drawFilledCircle(1161,594,111);
 	glFlush();
@@ -131,6 +132,7 @@ tower();
 drawStar();
 
 cloud();
+
 
 glEnd();
 glFlush ();
@@ -234,7 +236,16 @@ void cloud()
 	drawFilledCircle(900+160,150,40);
    glFlush();
 }
+void drawMoon()
+{
+    glColor3ub(255, 255 , 255);
+    drawFilledCircle(1161,294,111);
+    glColor3ub(1, 1, 1);
+    drawFilledCircle(1211,244,111);
+    glFlush();
 
+
+}
 
 void handleKeypress(unsigned char key, int x, int y) {
 
