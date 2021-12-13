@@ -4,9 +4,9 @@
 #include <GL/glut.h>
 #include<math.h>
 #define PI 3.1416
+int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,20,7,9,11};
 
 using namespace std;
-
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
 void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
@@ -17,7 +17,21 @@ void drawMoon();
 void drawLampPost();
 
 string mode="sunrise";
+void update(int a)
+{
 
+    for(int i=0;i<5;i++)
+    {
+
+        if(posCloud[i]>1900)
+            posCloud[i]=-100;
+        posCloud[i]+=cloudSpeed[i];
+
+    }
+    glutPostRedisplay();
+	glutTimerFunc(100, update, 0);
+
+}
 void drawStar() {
   glColor3ub(255,255,255);
   drawFilledCircle(0, 0, 5);
@@ -42,7 +56,7 @@ void background(string mode){
 
 	glColor3ub(255, 230, 200);
 	drawFilledCircle(1161,594,111);
-	glFlush();
+
 }
 
 void tower(){
@@ -56,7 +70,7 @@ void tower(){
 		y+=40;
 	}
 	glEnd();
-	glFlush();
+
 }
 
 void bridge(){
@@ -116,25 +130,46 @@ void myDisplay(void)
 glClear (GL_COLOR_BUFFER_BIT);
 
 glPointSize(5.0);
-
+glPushMatrix();
 //background theme
 background("night");
+glPopMatrix();
+
 
 //bridge er shoja jayga
+glPushMatrix();
 bridge();
+glPopMatrix();
+
 
 //footpath
+glPushMatrix();
 footpath();
+glPopMatrix();
+
 //bench
+glPushMatrix();
 bench();
+glPopMatrix();
+
 //bridge curve
-
+glPushMatrix();
 tower();
+glPopMatrix();
+
+glPushMatrix();
 drawStar();
+glPopMatrix();
 
+glPushMatrix();
 cloud();
+glPopMatrix();
 
+
+glPushMatrix();
 drawLampPost();
+glPopMatrix();
+
 glEnd();
 glFlush ();
 }
@@ -156,6 +191,7 @@ glutInitWindowPosition (0,0);
 glutCreateWindow ("Hatir Jheel lite");
 glutDisplayFunc(myDisplay);
 myInit ();
+  glutTimerFunc(100, update, 0);
 glutMainLoop();
 
 }
@@ -168,7 +204,7 @@ void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width){
 	glVertex2i(x+width, y+height);
 	glVertex2i(x, y+height);
 	glEnd();
-	glFlush();
+
 }
 //draw square
 void drawSquare(GLfloat x, GLfloat y, GLfloat height){
@@ -208,7 +244,6 @@ for(GLfloat t=0;t<=1;t=t+0.001)
 }
 
 glEnd();
-glFlush ();
 }
 
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
@@ -228,14 +263,19 @@ void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
 }
 void cloud()
 {
+
+    for(int i=0;i<5;i++){
+            glPushMatrix();
+    glTranslatef(posCloud[i],0, 0);
     glColor3ub(255, 255 , 255);
-	drawFilledCircle(900,150,40);
-	drawFilledCircle(900+35,150-40,50);
-	drawFilledCircle(900+55,150,55);
-	drawFilledCircle(900+90,150-50,65);
-	drawFilledCircle(900+100,150-10,65);
-	drawFilledCircle(900+160,150,40);
-   glFlush();
+	drawFilledCircle(0,150+i*20,40);
+	drawFilledCircle(0+35,110+i*20,50);
+	drawFilledCircle(0+55,150+i*20,55);
+	drawFilledCircle(0+90,100+i*20,65);
+	drawFilledCircle(0+100,140+i*20,65);
+	drawFilledCircle(0+160,150+i*20,40);
+	glPopMatrix();
+    }
 }
 void drawMoon()
 {
@@ -243,7 +283,7 @@ void drawMoon()
     drawFilledCircle(1161,294,111);
     glColor3ub(1, 1, 1);
     drawFilledCircle(1211,244,111);
-    glFlush();
+
 
 
 }
@@ -350,8 +390,6 @@ void drawLampPost()
 
 
 
-
-    glFlush();
 
 }
 void handleKeypress(unsigned char key, int x, int y) {
