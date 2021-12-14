@@ -1,22 +1,42 @@
+#include <GL/freeglut_std.h>
+#include <cstdlib>
 #include<iostream>
 #include <cstdio>
 #include<GL/gl.h>
 #include <GL/glut.h>
 #include<math.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define PI 3.1416
+using namespace std;
+
 int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,20,7,9,11};
 
-using namespace std;
+
+int Colors[]={42,46,137,20,27,79};
+string mode="night";
+int modeTime=0;
 void drawQuads(GLfloat x, GLfloat y, GLfloat height,GLfloat width);
 void drawSquare(GLfloat x, GLfloat y, GLfloat height);
 void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
+void handleKeypress(unsigned char key, int x, int y);
+void drawStar(int x,int y);
 void cloud();
 void drawMoon();
 void drawLampPost();
+int starX[]={1295,239,400,1479,1461,1264,849,784,369,780,987,1429,464,1706,1062,1611,624,1109,1250,171,52,420,295,901,162,1584,1879,334	,450	,768,1506,621,39		,879	,374	,584	,1432	,1694	,476	,136,250	 ,417,1468	,1300	,436	,550	,698	,1909	,549	,785,32	 ,1240,1808	,583	,125	,1555	,1455	,412	,1538	,1227,770	 ,667,468	,924	,1663	,269	,134	,1842	,1466	,702,783	 ,1737,1445	,921	,317	,627	,202	,317	,854	,177,1494 ,672,1323	,867	,1068	,1398	,1262	,489	,481	,593,1559 ,500,1407	,175	,820	,992	,1128	,1738	,1198	,176,32	 ,1240,1808	,583	,125	,1555	,1455	,412	,1538	,1227,770	 ,667,468	,924	,1663	,269	,134	,1842	,1466	,702,783	 ,1737,1445	,921	,317	,627	,202	,317	,854	,177,1494 ,672,1323	,867	,1068	,1398	,1262	,489	,481	,593,1559 ,500,1407	,175	,820	,992	,1128	,1738	,1198	,176};
+int starY[]={257,395,82,358	,56,231	,47,259,151,205,75	,397,185,211,301,335,221,373,287,103,335,193,113,45,399	,292,278	,231	,382	,219,294	,396,275	,100	,317	,90		,269	,164	,153	,372,24	,70	,84		,41		,167	,298	,333	,245	,6		,21,218	,232,58		,169	,16		,218	,372	,294	,246	,241,277	,395,138	,169	,240	,21		,30		,311	,301	,77,21	,388,116	,152	,49		,275	,217	,193	,237	,131,250	,247,207	,333	,63		,362	,50		,27		,222	,265,184	,42	,182	,32		,108	,367	,112	,149	,188	,200,257	,395,82		,358	,56		,231	,47		,259	,151	,205,75	,397,185	,211	,301	,335	,221	,373	,287	,103,335	,193,113	,45		,399	,292	,278	,231	,382	,219,294	,396,275	,100	,317	,90		,269	,164	,153	,372,24	,70	,84		,41		,167	,298	,333	,245	,6		,21,};
 
-string mode="sunrise";
+void drawStar(){
+	for(int i=0;i<150;i++){
+		glPushMatrix();
+		drawStar(starX[i],starY[i]);
+		glPopMatrix();
+	}
+}
+
 void update(int a)
 {
 
@@ -28,36 +48,67 @@ void update(int a)
         posCloud[i]+=cloudSpeed[i];
 
     }
+	if(modeTime==50){
+		modeTime=0;
+		if(mode=="night")
+			mode="sunrise";
+		else
+			mode="night";
+	}
+	else
+		modeTime++;
+    
     glutPostRedisplay();
-	glutTimerFunc(100, update, 0);
-
+    glutTimerFunc(100, update, 0);
 }
-void drawStar() {
+void drawStar(int x,int y) {
   glColor3ub(255,255,255);
-  drawFilledCircle(0, 0, 5);
+  drawFilledCircle(x, y, 1);
   glColor3f(.8, .8, .8);
-  drawFilledCircle(0, 0, 3);
+  drawFilledCircle(x, y, 2);
 }
 
 
 
-void background(string mode){
-	int sunriseColors[]={214,107,75,138, 74, 75};
+void background(){
+	if(mode=="sunrise"){
+	Colors[0]=214;
+	Colors[1]=107;
+	Colors[2]=75;
+	Colors[3]=138;
+	Colors[4]=74;
+	Colors[5]=75;
+	}
+	else if(mode=="night")
+	{
+	Colors[0]=42;
+	Colors[1]=46;
+	Colors[2]=137;
+	Colors[3]=20;
+	Colors[4]=27;
+	Colors[5]=79;
+	}
+
 	glBegin(GL_QUADS);
-	glColor3ub(214, 107, 75);
+	glColor3ub(Colors[0],Colors[1],Colors[2]);
 	glVertex2i(0, 0);
-	glColor3ub(214, 107, 75);
+	glColor3ub(Colors[0],Colors[1],Colors[2]);
 	glVertex2i(1920, 0);
-	glColor3ub(138, 74, 75);
+	glColor3ub(Colors[3],Colors[4],Colors[5]);
 	glVertex2i(1920, 885);
-	glColor3ub(138, 74, 75);
+	glColor3ub(Colors[3],Colors[4],Colors[5]);
 	glVertex2i(0, 885);
 	glEnd();
+	if(mode=="night"){
+			drawMoon();
+			drawStar();
+	}
+	else if(mode=="sunrise"){
+			glColor3ub(255, 230, 200);
+			drawFilledCircle(1161,594,111);
+	}
+	}
 
-	glColor3ub(255, 230, 200);
-	drawFilledCircle(1161,594,111);
-
-}
 
 void tower(){
 	glBegin(GL_LINES);
@@ -125,6 +176,13 @@ void bench(){
 	drawQuads(759, 792, 103, 12);
 }
 
+//
+//
+//
+//display function 
+//
+//
+//
 void myDisplay(void)
 {
 glClear (GL_COLOR_BUFFER_BIT);
@@ -132,7 +190,7 @@ glClear (GL_COLOR_BUFFER_BIT);
 glPointSize(5.0);
 glPushMatrix();
 //background theme
-background("night");
+background();
 glPopMatrix();
 
 
@@ -157,11 +215,9 @@ glPushMatrix();
 tower();
 glPopMatrix();
 
-glPushMatrix();
-drawStar();
-glPopMatrix();
 
 glPushMatrix();
+glScalef(1,.6,0);
 cloud();
 glPopMatrix();
 
@@ -279,13 +335,11 @@ void cloud()
 }
 void drawMoon()
 {
-    glColor3ub(255, 255 , 255);
-    drawFilledCircle(1161,294,111);
-    glColor3ub(1, 1, 1);
-    drawFilledCircle(1211,244,111);
-
-
-
+    glColor3ub(241,221,127);
+    drawFilledCircle(1472,186,30);
+    glColor3ub(251,244,215);
+    glColor4ub(241,221,127,0.15);
+    drawFilledCircle(1472,186,50);
 }
 void drawLampPost()
 {
@@ -393,26 +447,17 @@ void drawLampPost()
 
 }
 void handleKeypress(unsigned char key, int x, int y) {
-
-
-
 	switch (key) {
-
-
 case 'n':
 	mode="night";
     	break;
 case 's':
 	mode="sunrise";
 	break;
-case 'm':
-	mode="morning";
-   	break;
 
 
 
 glutPostRedisplay();
-
 
 
 
