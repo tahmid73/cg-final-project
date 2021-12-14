@@ -9,7 +9,7 @@
 #define PI 3.1416
 using namespace std;
 
-int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,20,7,9,11};
+int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,2,2,3,1};
 
 
 int Colors[]={42,46,137,20,27,79};
@@ -235,7 +235,7 @@ void tower(){
     glVertex2i(310+dx,633);
     glVertex2i(323+dx,623);
     glVertex2i(308+dx,610);
-     glVertex2i(319+dx,602);
+    glVertex2i(319+dx,602);
     glVertex2i(307+dx,591);
     glVertex2i(315+dx,584);
     glVertex2i(306+dx,575);
@@ -253,6 +253,61 @@ void tower(){
 }
 
 void bridge(){
+	for (int i=0, dx=0;i<4;i++,dx+=570){
+glColor3b(0,0,0);
+ glLineWidth(1);
+	glBegin(GL_LINES);
+    glVertex2i(95+dx,560);
+    glVertex2i(95+dx,596);
+	glVertex2i(120+dx,519+10);
+    glVertex2i(120+dx,596);
+    glVertex2i(142+dx,498+8);
+    glVertex2i(142+dx,596);
+     glVertex2i(164+dx,483+5);
+    glVertex2i(164+dx,596);
+	glVertex2i(183+dx,472+5);
+    glVertex2i(183+dx,596);
+    glVertex2i(198+dx,465+5);
+    glVertex2i(198+dx,596);
+    glVertex2i(216+dx,457+5);
+    glVertex2i(216+dx,596);
+	glVertex2i(231+dx,452+5);
+    glVertex2i(231+dx,596);
+    glVertex2i(247+dx,449+5);
+    glVertex2i(247+dx,596);
+    glVertex2i(264+dx,446+5);
+    glVertex2i(264+dx,596);
+    glVertex2i(281+dx,445+5);
+	glVertex2i(281+dx,596);
+    glVertex2i(295+dx,445+5);
+    glVertex2i(295+dx,596);
+
+	glVertex2i(310+dx,446+5);
+    glVertex2i(310+dx,596);
+    glVertex2i(326+dx,449+5);
+    glVertex2i(326+dx,596);
+     glVertex2i(340+dx,452+5);
+    glVertex2i(340+dx,596);
+	glVertex2i(354+dx,456+5);
+    glVertex2i(354+dx,596);
+    glVertex2i(371+dx,462+5);
+    glVertex2i(371+dx,596);
+    glVertex2i(391+dx,471+5);
+    glVertex2i(391+dx,596);
+	glVertex2i(409+dx,482+6);
+    glVertex2i(409+dx,596);
+    glVertex2i(427+dx,494+9);
+    glVertex2i(427+dx,596);
+    glVertex2i(443+dx,506+12);
+    glVertex2i(443+dx,596);
+    glVertex2i(458+dx,521+12);
+    glVertex2i(458+dx,596);
+	glVertex2i(474+dx,540+15);
+    glVertex2i(474+dx,596);
+
+
+glEnd();
+ }
 	glColor3ub(104, 55, 61);
 	drawQuads(0, 596, 20, 1920);
 	glColor3ub(67, 36, 41);
@@ -267,7 +322,6 @@ void bridge(){
 	drawQuads(x1, y1, 118, 65);
 	x1-=565;
 	drawQuads(x1, y1, 118, 65);
-
 
 }
 
