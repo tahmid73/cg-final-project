@@ -1,4 +1,3 @@
-#include <GL/freeglut_std.h>
 #include <cstdlib>
 #include<iostream>
 #include <cstdio>
@@ -57,7 +56,7 @@ void update(int a)
 	}
 	else
 		modeTime++;
-    
+
     glutPostRedisplay();
     glutTimerFunc(100, update, 0);
 }
@@ -109,8 +108,8 @@ void background(){
 	}
 	}
 
-
 void tower(){
+	glLineWidth(1);
 	glBegin(GL_LINES);
 	int x1=0,x2=1920,y=462;
 	glColor3ub(0,0,0);
@@ -121,6 +120,135 @@ void tower(){
 		y+=40;
 	}
 	glEnd();
+	for(int i=0,dx=0;i<3;i++,dx+=706){
+	for(int j=0,dy=0;j<3;j++,dy+=40)
+    {
+        glBegin(GL_LINE_STRIP);
+        glVertex2i(273+dx,463+dy);
+	    glVertex2i(292+dx,450+dy);
+        glVertex2i(307+dx,450+dy);
+	    glVertex2i(328+dx,463+dy);
+	    glEnd();
+
+    }
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(292+dx,450);
+    glVertex2i(292+dx,544);
+    glVertex2i(238+dx,775);
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(296+dx,450);
+    glVertex2i(296+dx,544);
+    glVertex2i(267+dx,779);
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(304+dx,450);
+    glVertex2i(304+dx,544);
+    glVertex2i(321+dx,787);
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(308+dx,450);
+    glVertex2i(308+dx,544);
+    glVertex2i(354+dx,762);
+    glEnd();
+
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(297+dx,450);
+    glVertex2i(304+dx,457);
+    glVertex2i(297+dx,463);
+    glVertex2i(304+dx,467);
+    glVertex2i(297+dx,471);
+    glVertex2i(304+dx,474);
+    glVertex2i(297+dx,477);
+    glVertex2i(304+dx,482);
+    glVertex2i(297+dx,485);
+    glVertex2i(304+dx,490);
+    glVertex2i(297+dx,496);
+    glVertex2i(304+dx,500);
+    glVertex2i(297+dx,504);
+    glVertex2i(304+dx,507);
+    glVertex2i(297+dx,511);
+    glVertex2i(304+dx,514);
+    glVertex2i(297+dx,517);
+    glVertex2i(304+dx,519);
+    glVertex2i(297+dx,524);
+    glVertex2i(304+dx,530);
+    glVertex2i(297+dx,538);
+    glVertex2i(304+dx,544);
+
+    glVertex2i(296+dx,552);
+    glVertex2i(304+dx,564);
+    glVertex2i(292+dx,577);
+    glVertex2i(306+dx,591);
+    glVertex2i(287+dx,615);
+    glVertex2i(310+dx,633);
+    glVertex2i(282+dx,658);
+    glVertex2i(313+dx,684);
+    glVertex2i(275+dx,708);
+    glVertex2i(317+dx,737);
+    glVertex2i(268+dx,770);
+    glEnd();
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(320+dx,777);
+    glVertex2i(272+dx,739);
+    glVertex2i(316+dx,720);
+    glVertex2i(280+dx,680);
+    glVertex2i(311+dx,655);
+    glVertex2i(285+dx,634);
+    glVertex2i(307+dx,609);
+    glVertex2i(290+dx,591);
+    glVertex2i(305+dx,574);
+    glVertex2i(294+dx,561);
+    glVertex2i(304+dx,552);
+    glEnd();
+
+    glBegin(GL_LINE_STRIP);
+    glVertex2i(269+dx,762);
+    glVertex2i(244+dx,748);
+    glVertex2i(271+dx,739);
+    glVertex2i(250+dx,721);
+    glVertex2i(275+dx,705);
+    glVertex2i(260+dx,682);
+    glVertex2i(282+dx,656);
+    glVertex2i(268+dx,644);
+    glVertex2i(284+dx,634);
+    glVertex2i(272+dx,625);
+    glVertex2i(287+dx,612);
+     glVertex2i(277+dx,605);
+    glVertex2i(289+dx,592);
+    glVertex2i(283+dx,583);
+    glVertex2i(291+dx,576);
+    glVertex2i(285+dx,569);
+    glVertex2i(293+dx,563);
+    glVertex2i(288+dx,558);
+    glVertex2i(294+dx,551);
+    glEnd();
+
+     glBegin(GL_LINE_STRIP);
+    glVertex2i(354+dx,763);
+    glVertex2i(318+dx,742);
+    glVertex2i(344+dx,720);
+    glVertex2i(316+dx,710);
+    glVertex2i(337+dx,688);
+    glVertex2i(313+dx,672);
+    glVertex2i(328+dx,647);
+    glVertex2i(310+dx,633);
+    glVertex2i(323+dx,623);
+    glVertex2i(308+dx,610);
+     glVertex2i(319+dx,602);
+    glVertex2i(307+dx,591);
+    glVertex2i(315+dx,584);
+    glVertex2i(306+dx,575);
+    glVertex2i(312+dx,570);
+    glVertex2i(309+dx,557);
+    glVertex2i(303+dx,548);
+    glEnd();
+
+
+	}
+
+
+
 
 }
 
@@ -179,7 +307,7 @@ void bench(){
 //
 //
 //
-//display function 
+//display function
 //
 //
 //
