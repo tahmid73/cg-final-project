@@ -384,9 +384,32 @@ void footpath(){
 	drawQuads(0, 1000, 80, 1920);
 }
 
+
 void bench(){
 	glColor3ub(156, 90, 92);
-	drawQuads(759, 792, 103, 12);
+	drawQuads(759, 793, 103, 12);
+	glColor3ub(132, 57, 61);
+	drawQuads(741,793,103,18);
+	drawQuads(660,793,20,84);
+	glColor3ub(156, 90, 92);
+	glBegin(GL_POLYGON);
+	glVertex2i(699,907);
+	glVertex2i(711,896);
+	glVertex2i(815,896);
+	glVertex2i(815,907);
+	glEnd();
+	glColor3ub(132, 57, 61);
+	drawQuads(865,847,76,23);
+	drawQuads(888,847,24,299);
+	drawQuads(1164,871,56,23);
+	glBegin(GL_POLYGON);
+	glColor3ub(72, 31, 29);
+	glVertex2i(888,922);
+	glVertex2i(888,869);
+	glVertex2i(894,869);
+	glVertex2i(894,916);
+	glEnd();
+
 }
 
 //
