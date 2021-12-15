@@ -72,13 +72,17 @@ void update(int a)
 	}
 	else
 		modeTime++;
+
     if(posBoat[0]>1920/.6)
+
     {
         posBoat[0]=-310;
     }
     posBoat[0]+=4;
 
+
      if(posBoat[1]>1920/.6-800)
+
     {
         posBoat[1]=-1100;
     }
@@ -420,7 +424,9 @@ footpath();
 glPopMatrix();
 
 glPushMatrix();
+
 glScalef(.6, .6, 0);
+
 boat();
 glPopMatrix();
 
@@ -549,7 +555,9 @@ void cloud()
 }
 void boat()
 {
+
     for(int i=0,dis=0,disy=548;i<2;i++,dis+=800,disy-=70){
+
     glPushMatrix();
     glTranslatef(posBoat[i],0,0);
     glColor3ub(0,0,0);
