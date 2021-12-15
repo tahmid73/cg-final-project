@@ -9,7 +9,7 @@
 #define PI 3.1416
 using namespace std;
 
-int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,2,2,3,1};
+int posCloud[5]={0,400,800,1200,1700};int cloudSpeed[5]={4,2,2,3,1};int posBoat[2]={500,1000};
 
 
 int Colors[]={42,46,137,20,27,79};
@@ -23,6 +23,7 @@ void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 void handleKeypress(unsigned char key, int x, int y);
 void drawStar(int x,int y);
 void cloud();
+void boat();
 void drawMoon();
 void drawLampPost();
 int starX[]={1295,239,400,1479,1461,1264,849,784,369,780,987,1429,464,1706,1062,1611,624,1109,1250,171,52,420,295,901,162,1584,1879,334	,450	,768,1506,621,39		,879	,374	,584	,1432	,1694	,476	,136,250	 ,417,1468	,1300	,436	,550	,698	,1909	,549	,785,32	 ,1240,1808	,583	,125	,1555	,1455	,412	,1538	,1227,770	 ,667,468	,924	,1663	,269	,134	,1842	,1466	,702,783	 ,1737,1445	,921	,317	,627	,202	,317	,854	,177,1494 ,672,1323	,867	,1068	,1398	,1262	,489	,481	,593,1559 ,500,1407	,175	,820	,992	,1128	,1738	,1198	,176,32	 ,1240,1808	,583	,125	,1555	,1455	,412	,1538	,1227,770	 ,667,468	,924	,1663	,269	,134	,1842	,1466	,702,783	 ,1737,1445	,921	,317	,627	,202	,317	,854	,177,1494 ,672,1323	,867	,1068	,1398	,1262	,489	,481	,593,1559 ,500,1407	,175	,820	,992	,1128	,1738	,1198	,176};
@@ -56,6 +57,17 @@ void update(int a)
 	}
 	else
 		modeTime++;
+    if(posBoat[0]>1900)
+    {
+        posBoat[0]=-310;
+    }
+    posBoat[0]+=4;
+
+     if(posBoat[1]>1900-800)
+    {
+        posBoat[1]=-1100;
+    }
+    posBoat[1]+=7;
 
     glutPostRedisplay();
     glutTimerFunc(100, update, 0);
@@ -381,20 +393,24 @@ glPushMatrix();
 bridge();
 glPopMatrix();
 
+//bridge curve
+glPushMatrix();
+tower();
+glPopMatrix();
+
 
 //footpath
 glPushMatrix();
 footpath();
 glPopMatrix();
 
+glPushMatrix();
+boat();
+glPopMatrix();
+
 //bench
 glPushMatrix();
 bench();
-glPopMatrix();
-
-//bridge curve
-glPushMatrix();
-tower();
 glPopMatrix();
 
 
@@ -515,6 +531,32 @@ void cloud()
 	glPopMatrix();
     }
 }
+void boat()
+{
+    for(int i=0,dis=0,disy=0;i<2;i++,dis+=800,disy-=30){
+    glPushMatrix();
+    glTranslatef(posBoat[i],0,0);
+    glColor3ub(0,0,0);
+    glBegin(GL_POLYGON);
+    glVertex2i(70+dis, 819+disy);
+	glVertex2i(301+dis, 818+disy);
+	glVertex2i(266+dis, 838+disy);
+	glVertex2i(103+dis, 838+disy);
+	glEnd();
+	glBegin(GL_TRIANGLES);
+	glColor3ub(255,255,255);
+	glVertex2i(139+dis, 816+disy);
+	glVertex2i(179+dis, 816+disy);
+	glVertex2i(179+dis, 766+disy);
+	glVertex2i(181+dis, 816+disy);
+	glVertex2i(255+dis, 816+disy);
+	glVertex2i(181+dis, 752+disy);
+	glEnd();
+	glPopMatrix();
+    }
+
+
+}
 void drawMoon()
 {
     glColor3ub(241,221,127);
@@ -525,6 +567,7 @@ void drawMoon()
 }
 void drawLampPost()
 {
+
     glBegin(GL_POLYGON);
     glColor3ub(23, 23, 23);
 	glVertex2i(1595, 863+45);
