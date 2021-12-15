@@ -21,6 +21,8 @@ void curve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void bridgeCurve(int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
 void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius);
 void handleKeypress(unsigned char key, int x, int y);
+void rain(int x, int y);
+void rain();
 void drawStar(int x,int y);
 void cloud();
 void boat();
@@ -37,6 +39,19 @@ void drawStar(){
 	}
 }
 
+void rain(int x, int y){
+	glColor3ub(255,255,255);
+	glBegin(GL_LINES);
+	glVertex2i(x, y);
+	glVertex2i(x, y+2);
+	glEnd();
+}
+
+void rain(){
+	for(int i=0;i<100;i++){
+		rain(starX[i],0);
+	}
+}
 void update(int a)
 {
 
@@ -57,13 +72,17 @@ void update(int a)
 	}
 	else
 		modeTime++;
-    if(posBoat[0]>1900)
+
+    if(posBoat[0]>1920/.6)
+
     {
         posBoat[0]=-310;
     }
     posBoat[0]+=4;
 
-     if(posBoat[1]>1900-800)
+
+     if(posBoat[1]>1920/.6-800)
+
     {
         posBoat[1]=-1100;
     }
@@ -405,6 +424,9 @@ footpath();
 glPopMatrix();
 
 glPushMatrix();
+
+glScalef(.6, .6, 0);
+
 boat();
 glPopMatrix();
 
@@ -415,7 +437,7 @@ glPopMatrix();
 
 
 glPushMatrix();
-glScalef(1,.6,0);
+glScalef(.6,.6,0);
 cloud();
 glPopMatrix();
 
@@ -533,7 +555,9 @@ void cloud()
 }
 void boat()
 {
-    for(int i=0,dis=0,disy=0;i<2;i++,dis+=800,disy-=30){
+
+    for(int i=0,dis=0,disy=548;i<2;i++,dis+=800,disy-=70){
+
     glPushMatrix();
     glTranslatef(posBoat[i],0,0);
     glColor3ub(0,0,0);
