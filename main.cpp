@@ -460,7 +460,7 @@ glPopMatrix();
 
 
 glPushMatrix();
-glScalef(.6,.6,0);
+glScalef(1,.6,0);
 cloud();
 glPopMatrix();
 
